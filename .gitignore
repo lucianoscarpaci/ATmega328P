@@ -1,0 +1,13 @@
+# Ignore Arduino build files
+*.ino.eep
+*.ino.elf
+*.ino.hex
+*.ino.with_bootloader.bin
+*.ino.with_bootloader.hex
+
+# Ignore Haskell build files
+*.hi
+*.o
+*.hs-boot
+*.hi-boot
+/dist/
