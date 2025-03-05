@@ -31,21 +31,15 @@ Before you can start working with the ATmega328P, you'll need to install the AVR
    arduino-cli core install arduino:avr
    ```
 
-### Compiling the Sketch
+### Automated Compiling and Flashing
 
-Once the core is installed, you can compile your sketch. Navigate to the project directory and run:
-
-```bash
-arduino-cli compile --fqbn arduino:avr:nano:cpu=atmega328old --output-dir "$PWD/build" $PWD/build/build.ino
-```
-
-### Flashing the Image
-
-After compiling, you can flash the image to your Arduino board. Use the following command in the project directory:
+Once the core is installed, you can compile and flash your sketch. Navigate to the project directory and run:
 
 ```bash
-arduino-cli upload -p /dev/cu.usbserial-1420 -b arduino:avr:nano:cpu=atmega328old --input-dir "$PWD/build"
+./flash
 ```
+
+build.hs is the config file that can be edited for new settings.
 
 ## 🤝 Contributing
 

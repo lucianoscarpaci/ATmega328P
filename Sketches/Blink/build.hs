@@ -40,8 +40,5 @@ main = do
     -- Upload the sketch
     runCommand $ "arduino-cli upload -p " ++ port ++ " -b " ++ boardFQBN ++ " --input-dir " ++ sketchPath
 
-    -- Add a delay to allow the serial port to be ready
+    -- Final delay to allow the sketch to start
     threadDelay (2 * 1000000)
-
-    -- Open the serial monitor
-    runCommand $ "screen " ++ port ++ " " ++ baudRate
