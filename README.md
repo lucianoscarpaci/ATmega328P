@@ -1,3 +1,9 @@
+# A T M E G A 3 2 8 P
+
+![Arduino](https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=arduino&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![MIT License](https://img.shields.io/badge/License-MIT-00599C?style=for-the-badge&logo=open-source-initiative&logo
+
 🔒 **Embedded Crypto Projects with Arduino Board**
 
 Welcome to the ATmega328P project repository! This project is all about exploring embedded systems and cryptography using the Arduino platform.
