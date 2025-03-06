@@ -12,7 +12,7 @@ Welcome to the ATmega328P project repository! This project is all about explorin
 This repository contains various projects that demonstrate the capabilities of the ATmega328P microcontroller. Our current project list includes:
 
 - **Blink**: A simple yet essential project to get you started with Arduino programming.
-- **GCD**: A project that calculates the greatest common divisor of two numbers.
+- **EEA**: A project that demonstrates the extended Euclidean algorithm (EEA) for finding modular inverses.
 
 ## 🛠️ Requirements
 
