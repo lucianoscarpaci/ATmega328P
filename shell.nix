@@ -13,5 +13,6 @@ mkShell {
   # Optional: Set environment variables
   shellHook = ''
     export PATH=$PATH:$HOME/.local/bin
+    alias serial="screen /dev/cu.usbserial-1420 9600"
   '';
 }
