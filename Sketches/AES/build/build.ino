@@ -1,3 +1,8 @@
+/*
+Credit to this author for example code:
+https://github.com/suculent/thinx-aes-lib/blob/master/examples/simple/simple.ino
+Modified by me to use EEPROM for key storage.
+*/
 #include "AESLib.h"
 #include <EEPROM.h>
 #define BAUD 9600
