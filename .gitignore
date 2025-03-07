@@ -11,3 +11,5 @@
 *.hs-boot
 *.hi-boot
 /dist/
+
+.DS_Store
