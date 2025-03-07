@@ -13,6 +13,12 @@ This repository contains various projects that demonstrate the capabilities of t
 
 - **Blink**: A simple yet essential project to get you started with Arduino programming.
 - **EEA**: A project that demonstrates the extended Euclidean algorithm (EEA) for finding modular inverses.
+- **PRNG**: A pseudo-random number generator (PRNG) implementation to show random key generation. 
+- **XOR**: Store a secret key in EEPROM and perform XOR encryption/decryption on a message.
+- **OTP**: Implement a one-time pad (OTP) encryption scheme using the ATmega328P.
+- **SHA256**: Compute the SHA-256 hash of a message using the ATmega328P.
+- **HMAC**: SHA-256 HMAC implementation using the ATmega328P.
+
 
 ## 🛠️ Requirements
 
