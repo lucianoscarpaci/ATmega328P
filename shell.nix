@@ -8,6 +8,7 @@ mkShell {
     arduino-cli
     pkgs.haskellPackages.stack
     pkgs.haskellPackages.haskell-language-server
+    pkgs.haskellPackages.haskeline
   ];
 
   # Optional: Set environment variables
