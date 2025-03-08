@@ -1,5 +1,6 @@
 #include <Arduino.h>
-
+#include <Crypto.h>
+#include <RNG.h>
 // Calculate the modular inverse using the Extended Euclidean Algorithm
 long extended_ea(long a, long b, int *loop) {
     long u = 1, new_u = 0;
@@ -38,30 +39,19 @@ void setup() {
     while (!Serial) {
         ; // Wait for serial port to connect. Needed for native USB port only
     }
-
-    int loops = 0;
-    long inverse1 = extended_ea(0x33, 0x0001FFFF, &loops);
-
-    Serial.print("Result (modular inverse) = 0x");
-    Serial.print(inverse1, HEX);
-    Serial.print(" Iterations = ");
-    Serial.println(loops);
-
-    long inverse2 = extended_ea(0x31, 0x0001FFFF, &loops);
-
-    Serial.print("Result (modular inverse) = 0x");
-    Serial.print(inverse2, HEX);
-    Serial.print(" Iterations = ");
-    Serial.println(loops);
-
-    long inverse3 = extended_ea(0xC7, 0x0001FFFF, &loops);
-
-    Serial.print("Result (modular inverse) = 0x");
-    Serial.print(inverse3, HEX);
-    Serial.print(" Iterations = ");
-    Serial.println(loops);
 }
 
 void loop() {
-    // No need for repeated operations here
+    RNG.loop();
+    // Use byte to represent the random number
+    byte random; 
+    RNG.rand(&random, sizeof(random));
+    int loops = 0;
+    long inverse = extended_ea(random, 0x0001FFFF, &loops);
+    Serial.print("Result (modular inverse) = 0x");
+    Serial.print(inverse, HEX);
+    Serial.print(" Iterations = ");
+    Serial.println(loops);
+
+    delay(1000);
 }
