@@ -4,17 +4,19 @@ https://github.com/suculent/thinx-aes-lib/blob/master/examples/simple/simple.ino
 Modified by me to use EEPROM for key storage.
 */
 #include "AESLib.h"
+#include <AES.h>
 #include <EEPROM.h>
 #define BAUD 9600
 
 AESLib aesLib;
+AES aes;
 
 #define INPUT_BUFFER_LIMIT (128 + 1) 
 
 unsigned char plaintext[INPUT_BUFFER_LIMIT] = {0}; // THIS IS INPUT BUFFER (FOR TEXT)
 unsigned char ciphertext[2*INPUT_BUFFER_LIMIT] = {0}; // THIS IS OUTPUT BUFFER (FOR ENCRYPTED DATA)
 
-unsigned char readBuffer[16] = "Encrypt It!xxxx";
+unsigned char readBuffer[17] = "Hide my message!";
 
 // AES Encryption Key
 byte aes_key[N_BLOCK];
@@ -37,14 +39,13 @@ void aes_init() {
 
 uint16_t encrypt_to_ciphertext(char * msg, uint16_t msgLen, byte iv[]) {
   Serial.println("Calling encrypt (string)...");
-  int cipherlength = aesLib.encrypt((byte*)msg, msgLen, (byte*)ciphertext, aes_key, sizeof(aes_key), iv);
+  int cipherlength = aes.cbc_encrypt((byte*)msg, msgLen, aes_key, iv);
   return cipherlength;
 }
 
 uint16_t decrypt_to_plaintext(byte msg[], uint16_t msgLen, byte iv[]) {
   Serial.print("Calling decrypt...; ");
-  uint16_t dec_bytes = aesLib.decrypt(msg, msgLen, (byte*)plaintext, aes_key, sizeof(aes_key), iv);
-  Serial.print("Decrypted bytes: "); Serial.println(dec_bytes);
+  uint16_t dec_bytes = aes.cbc_decrypt(msg, msgLen, aes_key, iv);
   return dec_bytes;
 }
 
@@ -85,13 +86,11 @@ void loop() {
   aesLib.gen_iv(enc_iv); // Generate a new random IV for each encryption
   memcpy(enc_iv_to, enc_iv, sizeof(enc_iv));
   uint16_t encLen = encrypt_to_ciphertext((char*)plaintext, msgLen, enc_iv);
-  Serial.print("Encrypted length = "); Serial.println(encLen );
 
-  Serial.println("Encrypted. Decrypting..."); Serial.println(encLen ); Serial.flush();
+  Serial.println("Encrypted. Decrypting..."); Serial.flush();
   
   memcpy(enc_iv_from, enc_iv_to, sizeof(enc_iv_to));
   uint16_t decLen = decrypt_to_plaintext(ciphertext, encLen, enc_iv_from);
-  Serial.print("Decrypted plaintext of length: "); Serial.println(decLen);
   Serial.print("Decrypted plaintext:\n"); Serial.println((char*)plaintext);
 
   if (strcmp((char*)readBuffer, (char*)plaintext) == 0) {
