@@ -50,6 +50,7 @@ uint16_t decrypt_to_plaintext(byte msg[], uint16_t msgLen, byte iv[]) {
 }
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(BAUD);
   Serial.setTimeout(60000);
   delay(2000);
@@ -74,7 +75,10 @@ byte enc_iv_to[N_BLOCK];
 byte enc_iv_from[N_BLOCK];
 
 void loop() {
-
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(500);
   Serial.print("readBuffer length: "); Serial.println(sizeof(readBuffer));
 
    // must not exceed INPUT_BUFFER_LIMIT bytes; may contain a newline
