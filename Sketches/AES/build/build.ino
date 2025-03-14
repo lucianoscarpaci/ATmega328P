@@ -1,15 +1,11 @@
 /*
-Credit to this author for example code:
-https://github.com/suculent/thinx-aes-lib/blob/master/examples/simple/simple.ino
-Modified by me to use EEPROM for key storage.
+Author: Luciano Scarpaci Copyright (c) 2025
 */
 #include "AESLib.h"
-#include <AES.h>
 #include <EEPROM.h>
 #define BAUD 9600
 
 AESLib aesLib;
-AES aes;
 
 #define INPUT_BUFFER_LIMIT (128 + 1) 
 
@@ -39,13 +35,13 @@ void aes_init() {
 
 uint16_t encrypt_to_ciphertext(char * msg, uint16_t msgLen, byte iv[]) {
   Serial.println("Calling encrypt (string)...");
-  int cipherlength = aes.cbc_encrypt((byte*)msg, msgLen, aes_key, iv);
+  int cipherlength = aesLib.encrypt64((const byte*)msg, msgLen, (byte*)ciphertext, aes_key, sizeof(aes_key), iv);
   return cipherlength;
 }
 
 uint16_t decrypt_to_plaintext(byte msg[], uint16_t msgLen, byte iv[]) {
   Serial.print("Calling decrypt...; ");
-  uint16_t dec_bytes = aes.cbc_decrypt(msg, msgLen, aes_key, iv);
+  uint16_t dec_bytes = aesLib.decrypt64(msg, msgLen, (byte*)plaintext, aes_key, sizeof(aes_key), iv);
   return dec_bytes;
 }
 
@@ -91,7 +87,10 @@ void loop() {
   memcpy(enc_iv_to, enc_iv, sizeof(enc_iv));
   uint16_t encLen = encrypt_to_ciphertext((char*)plaintext, msgLen, enc_iv);
 
-  Serial.println("Encrypted. Decrypting..."); Serial.flush();
+  Serial.println("Encrypted. "); 
+  Serial.print("Encrypted ciphertext: "); Serial.println((char*)ciphertext);
+  Serial.println("Decrypting...");
+  Serial.flush();
   
   memcpy(enc_iv_from, enc_iv_to, sizeof(enc_iv_to));
   uint16_t decLen = decrypt_to_plaintext(ciphertext, encLen, enc_iv_from);
@@ -104,5 +103,5 @@ void loop() {
   }
 
   Serial.println("---");
-
+  delay(1000); // Add delay to prevent rapid looping
 }

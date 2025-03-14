@@ -45,6 +45,9 @@ Once the core is installed, you can compile and flash your sketch. Navigate to t
 
 build.hs is the config file that can be edited for new settings.
 
+### Screenshot of AES Project
+<img src="./Screenshots/AES.png" width="500">
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! If you have ideas for new projects or improvements, feel free to open an issue or submit a pull request.
